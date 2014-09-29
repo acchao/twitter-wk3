@@ -8,7 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    var tweets: [Tweet]?
 
     @IBOutlet weak var tweetTableView: UITableView!
     override func viewDidLoad() {
@@ -17,7 +21,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tweetTableView.delegate = self
         tweetTableView.dataSource = self
 
-
+        TwitterClient.sharedInstance.homeTimelineWithCompletion(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets
+            println("\(self.tweets)")
+        })
 
     }
 
@@ -37,6 +44,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var cell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as TweetCell
 
         return cell
+    }
+
+    @IBAction func onLogout(sender: AnyObject) {
+        User.currentUser?.logout()
     }
 }
 
