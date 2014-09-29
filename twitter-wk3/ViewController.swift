@@ -8,11 +8,17 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var tweetTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        tweetTableView.delegate = self
+        tweetTableView.dataSource = self
+
+
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -20,6 +26,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
 
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        tableView.estimatedRowHeight = 44
+        tableView.rowHeight = UITableViewAutomaticDimension
+
+        var cell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as TweetCell
+
+        return cell
+    }
 }
 
