@@ -1,5 +1,6 @@
 twitter-wk3
 ===========
+Time to Complete: ~13 hours
 
 CodePath Twitter Client
 
@@ -19,3 +20,12 @@ CodePath Twitter Client
 * [ ] User should be able to unretweet and unfavorite and should decrement the retweet and favorite count.
 * [x] Replies should be prefixed with the username and the reply_id should be set when posting the tweet,
 * [ ] User can load more tweets once they reach the bottom of the feed using infinite loading similar to the actual Twitter client.
+
+
+=======
+
+Walkthrough of all user stories:
+
+![Video Walkthrough](Assignment3.gif)
+
+![Clip of retweet on twitter](Assignment3pt2.gif)
