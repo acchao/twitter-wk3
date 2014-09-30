@@ -11,10 +11,10 @@ import UIKit
 class TweetCell: UITableViewCell {
 
 
-    @IBOutlet weak var retweeterLabel: UIView!
+    @IBOutlet weak var retweeterLabel: UILabel!
     @IBOutlet weak var retweetIcon: UIImageView!
-    @IBOutlet weak var userLabel: UIView!
-    @IBOutlet weak var handleLabel: UIView!
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
@@ -22,6 +22,25 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var replyButton: UIView!
     @IBOutlet weak var retweetButton: UIView!
     @IBOutlet weak var favoriteButton: UIView!
+
+
+    var tweet: Tweet! {
+        didSet {
+            let user = tweet.user!
+            tweetLabel.text = tweet.text
+            userLabel.text = user.name
+            dateLabel.text = tweet.getTimeSinceTweet()
+            handleLabel.text = "@\(user.screenname!)"
+            if tweet.retweeter == nil || tweet.retweeter == "" {
+                retweetIcon.hidden = true
+                retweeterLabel.hidden = true
+            }
+            profileImage.setImageWithURL(NSURL(string: user.profileImageUrl!))
+            // Round the image corners
+            profileImage.layer.cornerRadius = 5
+            profileImage.clipsToBounds = true
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

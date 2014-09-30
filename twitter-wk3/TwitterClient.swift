@@ -25,8 +25,8 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
 
     func homeTimelineWithCompletion(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
 
-        GET("1.1/statuses/home_timeline.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            println("user: \(response)")
+        var parameters = ["count": 21]
+        GET("1.1/statuses/home_timeline.json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
 
             var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
             completion(tweets: tweets, error: nil)
@@ -37,13 +37,27 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         })
     }
 
+    func tweet(status: String, completion: (success: AnyObject?, error: NSError?)->()) {
+        var parameters = ["status": status]
+
+        POST("1.1/statuses/update.json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response:AnyObject!) -> Void in
+            println("\(response)")
+            completion(success:response, error: nil)
+
+        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+
+            println("failed to post status: \(error)")
+            completion(success:nil, error: error)
+        })
+    }
+
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
 
         // Fetch request token & redirect to authorization page
         requestSerializer.removeAccessToken()
         fetchRequestTokenWithPath("oauth/request_token", method: "GET", callbackURL: NSURL(string: "cptwitterdemo://oauth"), scope: nil, success: { (requestToken: BDBOAuthToken!) -> Void in
-            println("got the token")
+
             var authURL = NSURL(string: "https://api.twitter.com/oauth/authorize?oauth_token=\(requestToken.token)")
             UIApplication.sharedApplication().openURL(authURL)
 

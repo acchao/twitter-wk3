@@ -13,14 +13,15 @@ class Tweet: NSObject {
     var text: String?
     var createdAtString: String?
     var createdAt: NSDate?
+    var retweeter: String?
+
 
     init(dictionary: NSDictionary) {
         user = User(dictionary: dictionary["user"] as NSDictionary)
         text = dictionary["text"] as? String
         createdAtString = dictionary["created_at"] as? String
 
-
-        //TODO: make static and a lazy property
+        // TODO: make static and a lazy property
         var formatter = NSDateFormatter()
         formatter.dateFormat = "EEE MMM DD HH:mm:ss Z y"
         createdAt = formatter.dateFromString(createdAtString!)
@@ -32,5 +33,23 @@ class Tweet: NSObject {
             tweets.append(Tweet(dictionary: dictionary))
         }
         return tweets
+    }
+
+    func getTimeSinceTweet() -> String {
+        // println(createdAtString)
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(.CalendarUnitHour | .CalendarUnitMinute, fromDate: createdAt!)
+        let hour = components.hour
+        let minutes = components.minute
+
+        if hour > 24 {
+            return "\(hour/24)d"
+        } else if hour > 0 {
+            return "\(hour)h"
+        } else if minutes > 0 {
+            return "\(minutes)m"
+        } else {
+            return "now"
+        }
     }
 }
