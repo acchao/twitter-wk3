@@ -8,6 +8,12 @@
 
 import UIKit
 
+
+protocol TweetCellDelegate {
+    func tweetCellReplyButtonClicked(tweetCell: TweetCell)
+}
+
+
 class TweetCell: UITableViewCell {
 
 
@@ -23,6 +29,7 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var retweetButton: UIView!
     @IBOutlet weak var favoriteButton: UIView!
 
+    var delegate: TweetCellDelegate?
 
     var tweet: Tweet! {
         didSet {
@@ -40,6 +47,30 @@ class TweetCell: UITableViewCell {
             profileImage.layer.cornerRadius = 5
             profileImage.clipsToBounds = true
         }
+    }
+
+    @IBAction func onReply(sender: AnyObject) {
+        delegate!.tweetCellReplyButtonClicked(self)
+    }
+
+    @IBAction func onRetweet(sender: AnyObject) {
+        TwitterClient.sharedInstance.retweet(tweet.status_id!, completion: { (response, error) -> () in
+            if error != nil {
+                println(error)
+            } else {
+                println(response)
+            }
+        })
+    }
+
+    @IBAction func onFavorite(sender: AnyObject) {
+        TwitterClient.sharedInstance.favorite(tweet.status_id!, completion: { (response, error) -> () in
+            if error != nil {
+                println(error)
+            } else {
+                println(response)
+            }
+        })
     }
 
     override func awakeFromNib() {

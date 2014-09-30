@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class TweetsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TweetCellDelegate , ComposeViewControllerDelegate{
 
     var tweets: [Tweet] = []
     var refreshControl: UIRefreshControl!
@@ -35,10 +35,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     // Reloads with tweets
     func reloadTableView() {
         TwitterClient.sharedInstance.homeTimelineWithCompletion(nil, completion: { (tweets, error) -> () in
-            self.tweets = tweets!
-            self.view.hideActivityView()
-            self.refreshControl.endRefreshing()
-            self.tweetTableView.reloadData()
+            if error != nil {
+                println(error)
+            } else {
+                self.tweets = tweets!
+                self.view.hideActivityView()
+                self.refreshControl.endRefreshing()
+                self.tweetTableView.reloadData()
+            }
         })
     }
 
@@ -48,7 +52,6 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        println("\(self.tweets.count)")
         return tweets.count
     }
 
@@ -58,6 +61,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
         var cell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as TweetCell
 
+        cell.delegate = self
         cell.tweet = tweets[indexPath.row] as Tweet
 
         return cell
@@ -72,20 +76,43 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     @IBAction func onCompose(sender: AnyObject) {
+        composeButtonTitle = "Tweet"
         self.performSegueWithIdentifier("composeSegue", sender: self)
     }
 
+    // attributes of the compose view controller
+    var composeButtonTitle = ""
+    var tweet:Tweet?
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "tweetDetailsSegue" {
             var indexPath = tweetTableView.indexPathForSelectedRow() as NSIndexPath!
-            var vc = segue.destinationViewController as ComposeViewController
+            var vc = (segue.destinationViewController as UINavigationController).topViewController as TweetDetailsViewController
             vc.tweet = tweets[indexPath.row] as Tweet
+        } else if segue.identifier == "composeSegue" {
+            var indexPath = tweetTableView.indexPathForSelectedRow() as NSIndexPath!
+            var vc = (segue.destinationViewController as UINavigationController).topViewController as ComposeViewController
+            vc.delegate = self
+            vc.composeButton.title = composeButtonTitle
+            if tweet != nil {
+                vc.tweet = tweet
+            }
         }
     }
 
+    func tweetCellReplyButtonClicked(tweetCell: TweetCell) {
+        composeButtonTitle = "Reply"
+        tweet = tweetCell.tweet
+        self.performSegueWithIdentifier("composeSegue", sender: self)
+    }
+
+    func composeViewControllerTweetButtonClicked(composeViewController: ComposeViewController) {
+        // TODO: do this without refetching. 
+        // grab a tweet representation and insert it into self.tweets.
+        reloadTableView()
+    }
 
 }
 

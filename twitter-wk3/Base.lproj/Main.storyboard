@@ -48,17 +48,42 @@
                                                     <color key="textColor" red="0.57390030569999995" green="0.57390030569999995" blue="0.57390030569999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have seen a lot in the last year that has allowed me to appreciate the vastness of the world" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsY-cP-cWn">
-                                                    <rect key="frame" x="74" y="44" width="516" height="34"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" red="0.25443699050000002" green="0.25443699050000002" blue="0.25443699050000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7c-Lf-8n9">
                                                     <rect key="frame" x="74" y="88" width="23" height="22"/>
                                                     <state key="normal" image="reply">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <state key="selected" image="reply-highlight"/>
+                                                    <state key="highlighted" image="reply-highlight"/>
+                                                    <connections>
+                                                        <action selector="onReply:" destination="mSc-Os-v3o" eventType="touchUpInside" id="7bR-oI-h1g"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uJ7-mb-78m">
+                                                    <rect key="frame" x="122" y="88" width="24" height="22"/>
+                                                    <state key="normal" image="retweet">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="retweet-highlight"/>
+                                                    <state key="highlighted" image="retweet-highlight"/>
+                                                    <connections>
+                                                        <action selector="onRetweet:" destination="mSc-Os-v3o" eventType="touchUpInside" id="MQl-wS-09u"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIl-O1-iTd">
+                                                    <rect key="frame" x="173" y="87" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="3qZ-5C-dyE"/>
+                                                        <constraint firstAttribute="height" constant="24" id="mWv-LV-8QO"/>
+                                                    </constraints>
+                                                    <state key="normal" image="star">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="selected" image="star-selected"/>
+                                                    <state key="highlighted" image="star-selected"/>
+                                                    <connections>
+                                                        <action selector="onFavorite:" destination="mSc-Os-v3o" eventType="touchUpInside" id="Pod-B2-jm0"/>
+                                                    </connections>
                                                 </button>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="retweetIcon" image="retweet" translatesAutoresizingMaskIntoConstraints="NO" id="ox2-jw-dBe">
                                                     <rect key="frame" x="51" y="5" width="15" height="11"/>
@@ -79,22 +104,12 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uJ7-mb-78m">
-                                                    <rect key="frame" x="122" y="88" width="24" height="22"/>
-                                                    <state key="normal" image="retweet">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xIl-O1-iTd">
-                                                    <rect key="frame" x="173" y="87" width="24" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="24" id="3qZ-5C-dyE"/>
-                                                        <constraint firstAttribute="height" constant="24" id="mWv-LV-8QO"/>
-                                                    </constraints>
-                                                    <state key="normal" image="star">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="I have seen a lot in the last year that has allowed me to appreciate the vastness of the world" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xsY-cP-cWn">
+                                                    <rect key="frame" x="74" y="45" width="516" height="34"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" red="0.25443699050000002" green="0.25443699050000002" blue="0.25443699050000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="iV3-I7-Hxc" secondAttribute="trailing" constant="10" id="01z-1B-eRJ"/>
@@ -268,12 +283,22 @@
                                 <state key="normal" image="reply">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" image="reply-highlight"/>
+                                <state key="highlighted" image="reply-highlight"/>
+                                <connections>
+                                    <action selector="onReply:" destination="X8B-vn-ps0" eventType="touchUpInside" id="c9G-9t-oY1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rlo-ne-Ldu">
                                 <rect key="frame" x="74" y="282" width="24" height="24"/>
                                 <state key="normal" image="retweet">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" image="retweet-highlight"/>
+                                <state key="highlighted" image="retweet-highlight"/>
+                                <connections>
+                                    <action selector="onRetweet:" destination="X8B-vn-ps0" eventType="touchUpInside" id="vzt-py-xnJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VjZ-Yl-Ubv">
                                 <rect key="frame" x="133" y="282" width="24" height="24"/>
@@ -284,6 +309,11 @@
                                 <state key="normal" image="star">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" image="star-selected"/>
+                                <state key="highlighted" image="star-selected"/>
+                                <connections>
+                                    <action selector="onFavorite:" destination="X8B-vn-ps0" eventType="touchUpInside" id="KRe-an-vNI"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retweet" translatesAutoresizingMaskIntoConstraints="NO" id="BM9-sy-ElJ">
                                 <rect key="frame" x="52" y="74" width="15" height="11"/>
@@ -340,6 +370,18 @@
                     <navigationItem key="navigationItem" title="Tweet" id="UTt-Wp-cgn">
                         <barButtonItem key="rightBarButtonItem" title="Reply" id="u9u-Jz-keh"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dateLabel" destination="h59-KK-H7N" id="iFu-9d-87m"/>
+                        <outlet property="favoriteCountLabel" destination="TAB-M4-IRj" id="RvP-fZ-rhO"/>
+                        <outlet property="handleLabel" destination="qVm-TV-A63" id="aZd-C1-CMW"/>
+                        <outlet property="nameLabel" destination="Ggg-u1-2e3" id="HIG-Fc-OC0"/>
+                        <outlet property="profileImage" destination="s2r-Mj-dLy" id="ZCn-ba-jyK"/>
+                        <outlet property="retweetCountLabel" destination="j6l-hT-Q3O" id="Gd8-VP-kfc"/>
+                        <outlet property="retweetIcon" destination="BM9-sy-ElJ" id="hxw-ec-uls"/>
+                        <outlet property="retweeterLabel" destination="O8w-Gl-3jE" id="y1V-gh-Oyj"/>
+                        <outlet property="tweetTextLabel" destination="IFc-gI-9yK" id="RLS-wt-ktA"/>
+                        <segue destination="8rx-od-Yo9" kind="presentation" identifier="composeSegue" id="Rmt-df-0sK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pNs-Gj-rEY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -432,6 +474,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="charCountLabel" destination="byJ-JP-E2Y" id="y7C-5q-pbG"/>
+                        <outlet property="composeButton" destination="mBq-SW-88Y" id="H3C-OF-YNZ"/>
                         <outlet property="handleLabel" destination="67f-0F-ama" id="6RT-NQ-sNP"/>
                         <outlet property="nameLabel" destination="3nh-Gq-yDD" id="iGL-Il-HVE"/>
                         <outlet property="profileImage" destination="8Me-f9-sEl" id="Mhh-n6-7OF"/>
@@ -440,7 +483,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPX-Hp-XnF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1219" y="4048"/>
+            <point key="canvasLocation" x="1114" y="4073"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="LWR-Si-R6C">
@@ -528,7 +571,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DXb-bT-byx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1114" y="3313"/>
+            <point key="canvasLocation" x="1114" y="3348"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kkW-R4-U6W">
@@ -551,7 +594,13 @@
     </scenes>
     <resources>
         <image name="reply" width="23" height="17"/>
+        <image name="reply-highlight" width="23" height="17"/>
         <image name="retweet" width="24" height="17"/>
+        <image name="retweet-highlight" width="24" height="17"/>
         <image name="star" width="26" height="26"/>
+        <image name="star-selected" width="26" height="26"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Rmt-df-0sK"/>
+    </inferredMetricsTieBreakers>
 </document>

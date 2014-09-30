@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ComposeViewControllerDelegate {
+    func composeViewControllerTweetButtonClicked(composeViewController: ComposeViewController)
+}
+
 class ComposeViewController: UIViewController, UITextViewDelegate {
 
 
@@ -16,8 +20,24 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var charCountLabel: UILabel!
+    @IBOutlet weak var composeButton: UIBarButtonItem!
 
-    var tweet: Tweet!
+    var mentions: String?
+
+    var delegate: ComposeViewControllerDelegate?
+
+    var tweet: Tweet! {
+        didSet {
+            let user_mentions = tweet.entities!["user_mentions"] as NSArray
+            var mentions = ""
+            for user_mention in user_mentions {
+                var user = User(dictionary: user_mention as NSDictionary)
+                mentions = "@\(user.screenname!) \(mentions)"
+            }
+            mentions = "@\(tweet.user!.screenname!) \(mentions)"
+            self.mentions = mentions
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,12 +49,18 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
         handleLabel.text = "@\(user.screenname!)"
 
         tweetTextView.delegate = self
+        if mentions != nil {
+            tweetTextView.text = mentions
+            tweetTextView.textColor = UIColor.blackColor();
+        }
+
     }
 
     func textViewShouldBeginEditing(textView: UITextView) -> Bool {
-        tweetTextView.text = "";
-        tweetTextView.textColor = UIColor.blackColor();
-
+        if mentions == nil {
+            tweetTextView.text = "";
+            tweetTextView.textColor = UIColor.blackColor();
+        }
         return true
     }
 
@@ -57,18 +83,21 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     }
 
     @IBAction func onCancelButton(sender: AnyObject) {
-        println("why not cancel?")
-//        navigationController!.popViewControllerAnimated(true)
-//        self.presentingViewController?.dismissViewControllerAnimated(true, completion: {})
         dismissViewControllerAnimated(true, completion: {})
     }
 
     @IBAction func onTweet(sender: AnyObject) {
-        TwitterClient.sharedInstance.tweet(tweetTextView.text, completion: { (success, error) -> () in
+        var parameters = ["status": tweetTextView.text]
+        if tweet != nil && tweet.status_id != nil {
+            parameters["in_reply_to_status_id"] = tweet.status_id
+        }
+
+        TwitterClient.sharedInstance.tweet(parameters, completion: { (success, error) -> () in
             if error == nil {
                 println("success!")
             }
             self.dismissViewControllerAnimated(true, completion: {})
+            self.delegate!.composeViewControllerTweetButtonClicked(self)
         })
 
     }

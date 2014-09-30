@@ -37,17 +37,45 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         })
     }
 
-    func tweet(status: String, completion: (success: AnyObject?, error: NSError?)->()) {
-        var parameters = ["status": status]
-
+    // Post a new tweet or a reply
+    func tweet(parameters: NSDictionary, completion: (success: AnyObject?, error: NSError?)->()) {
         POST("1.1/statuses/update.json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response:AnyObject!) -> Void in
             println("\(response)")
             completion(success:response, error: nil)
 
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+
+                println("failed to post status: \(error)")
+                completion(success:nil, error: error)
+        })
+    }
+
+
+    // Favorite a tweet
+    func favorite(status_id: String, completion: (response: AnyObject?, error: NSError?)->()) {
+        var parameters = ["id": status_id]
+
+        POST("1.1/favorites/create.json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response:AnyObject!) -> Void in
+            completion(response:response, error: nil)
+
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
 
-            println("failed to post status: \(error)")
-            completion(success:nil, error: error)
+            println("failed to favorite post: \(error)")
+            completion(response:nil, error: error)
+        })
+    }
+
+    func retweet(status_id: String, completion: (response: AnyObject?, error: NSError?)->()) {
+        var parameters = ["id": status_id]
+
+        POST("1.1/statuses/retweet/\(status_id).json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response:AnyObject!) -> Void in
+            println("\(response)")
+            completion(response:response, error: nil)
+
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+
+                println("failed to retweet post: \(error)")
+                completion(response:nil, error: error)
         })
     }
 
