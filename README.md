@@ -1,6 +1,6 @@
 twitter-wk3
 ===========
-Time to Complete: ~13 hours
+Time to Complete: ~15 hours
 
 CodePath Twitter Client
 
@@ -28,4 +28,3 @@ Walkthrough of all user stories:
 
 ![Video Walkthrough](Assignment3.gif)
 
-![Clip of retweet on twitter](Assignment3pt2.gif)
