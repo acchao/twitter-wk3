@@ -25,9 +25,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var tweetLabel: UILabel!
 
-    @IBOutlet weak var replyButton: UIView!
-    @IBOutlet weak var retweetButton: UIView!
-    @IBOutlet weak var favoriteButton: UIView!
+    @IBOutlet weak var replyButton: UIButton!
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
 
     var delegate: TweetCellDelegate?
 
@@ -46,6 +46,8 @@ class TweetCell: UITableViewCell {
             // Round the image corners
             profileImage.layer.cornerRadius = 5
             profileImage.clipsToBounds = true
+            favoriteButton.selected = (tweet.favorited! == 1)
+            retweetButton.selected = (tweet.retweeted! == 1)
         }
     }
 
@@ -53,20 +55,24 @@ class TweetCell: UITableViewCell {
         delegate!.tweetCellReplyButtonClicked(self)
     }
 
-    @IBAction func onRetweet(sender: AnyObject) {
+    @IBAction func onRetweet(sender: UIButton) {
+        sender.selected = true
         TwitterClient.sharedInstance.retweet(tweet.status_id!, completion: { (response, error) -> () in
             if error != nil {
                 println(error)
+                sender.selected = false
             } else {
                 println(response)
             }
         })
     }
 
-    @IBAction func onFavorite(sender: AnyObject) {
+    @IBAction func onFavorite(sender: UIButton) {
+        sender.selected = true
         TwitterClient.sharedInstance.favorite(tweet.status_id!, completion: { (response, error) -> () in
             if error != nil {
                 println(error)
+                sender.selected = false
             } else {
                 println(response)
             }

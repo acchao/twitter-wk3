@@ -20,6 +20,8 @@ class TweetDetailsViewController: UIViewController {
     @IBOutlet weak var favoriteCountLabel: UILabel!
     @IBOutlet weak var retweetIcon: UIImageView!
 
+    @IBOutlet weak var retweetButton: UIButton!
+    @IBOutlet weak var favoriteButton: UIButton!
     var tweet: Tweet!
     var composeButtonTitle: String?
 
@@ -41,6 +43,9 @@ class TweetDetailsViewController: UIViewController {
 
         retweetIcon.hidden = true
         retweeterLabel.hidden = true
+
+        favoriteButton.selected = (tweet.favorited! == 1)
+        retweetButton.selected = (tweet.retweeted! == 1)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,20 +58,25 @@ class TweetDetailsViewController: UIViewController {
         self.performSegueWithIdentifier("composeSegue", sender: self)
     }
 
-    @IBAction func onRetweet(sender: AnyObject) {
+    @IBAction func onRetweet(sender: UIButton) {
+        sender.selected = true
         TwitterClient.sharedInstance.retweet(tweet.status_id!, completion: { (response, error) -> () in
             if error != nil {
                 println(error)
+                sender.selected = false
             } else {
                 println(response)
             }
         })
     }
 
-    @IBAction func onFavorite(sender: AnyObject) {
+    @IBAction func onFavorite(sender: UIButton) {
+        // set to true until undo is enabled
+        sender.selected = true
         TwitterClient.sharedInstance.favorite(tweet.status_id!, completion: { (response, error) -> () in
             if error != nil {
                 println(error)
+                sender.selected = false
             } else {
                 println(response)
             }

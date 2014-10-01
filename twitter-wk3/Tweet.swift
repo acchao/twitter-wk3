@@ -15,9 +15,10 @@ class Tweet: NSObject {
     var createdAt: NSDate?
     var retweeter: String?
     var status_id: String?
-    var retweet_count: Int
-    var favorite_count: Int
-
+    var retweet_count: Int?
+    var favorite_count: Int?
+    var favorited: Int?
+    var retweeted: Int?
     var entities: NSDictionary?
 
     init(dictionary: NSDictionary) {
@@ -27,8 +28,10 @@ class Tweet: NSObject {
         createdAtString = dictionary["created_at"] as? String
         status_id = dictionary["id_str"] as? String
         entities = dictionary["entities"] as? NSDictionary
-        retweet_count = dictionary["retweet_count"] as Int
-        favorite_count = dictionary["favorite_count"] as Int
+        retweet_count = dictionary["retweet_count"] as? Int
+        favorite_count = dictionary["favorite_count"] as? Int
+        retweeted = dictionary["retweeted"] as? Int
+        favorited = dictionary["favorited"] as? Int
 
         // TODO: make static and a lazy property
         var formatter = NSDateFormatter()

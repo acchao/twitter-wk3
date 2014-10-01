@@ -30,6 +30,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "reloadTableView", forControlEvents: UIControlEvents.ValueChanged)
         self.tweetTableView.addSubview(refreshControl)
+
+        tweetTableView.estimatedRowHeight = 100
+        tweetTableView.rowHeight = UITableViewAutomaticDimension
     }
 
     // Reloads with tweets
@@ -56,14 +59,14 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        tableView.estimatedRowHeight = 44
-        tableView.rowHeight = UITableViewAutomaticDimension
+
+
 
         var cell = tableView.dequeueReusableCellWithIdentifier("TweetCell") as TweetCell
 
         cell.delegate = self
         cell.tweet = tweets[indexPath.row] as Tweet
-
+        cell.contentView.layoutSubviews()
         return cell
     }
 
