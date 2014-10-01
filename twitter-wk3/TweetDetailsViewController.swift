@@ -32,8 +32,8 @@ class TweetDetailsViewController: UIViewController {
         nameLabel.text = tweet.user!.name!
         handleLabel.text = tweet.user!.screenname!
         tweetTextLabel.text = tweet.text!
-        favoriteCountLabel.text = "\(tweet.favorite_count)"
-        retweetCountLabel.text = "\(tweet.retweet_count)"
+        favoriteCountLabel.text = "\(tweet.favorite_count!)"
+        retweetCountLabel.text = "\(tweet.retweet_count!)"
         profileImage.setImageWithURL(NSURL(string: tweet.user!.profileImageUrl!))
 
         let dateFormatter = NSDateFormatter()
