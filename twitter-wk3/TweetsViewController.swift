@@ -98,7 +98,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             var indexPath = tweetTableView.indexPathForSelectedRow() as NSIndexPath!
             var vc = (segue.destinationViewController as UINavigationController).topViewController as ComposeViewController
             vc.delegate = self
-            vc.composeButton.title = composeButtonTitle
+            vc.composeButton.setTitle(composeButtonTitle, forState: UIControlState.Normal)
             if tweet != nil {
                 vc.tweet = tweet
             }

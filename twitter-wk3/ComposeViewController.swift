@@ -20,7 +20,8 @@ class ComposeViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
     @IBOutlet weak var charCountLabel: UILabel!
-    @IBOutlet weak var composeButton: UIBarButtonItem!
+    @IBOutlet weak var composeButton: UIButton!
+
 
     var mentions: String?
 

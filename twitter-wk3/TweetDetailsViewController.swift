@@ -89,7 +89,7 @@ class TweetDetailsViewController: UIViewController {
         // Pass the selected object to the new view controller.
         if segue.identifier == "composeSegue" {
             var vc = (segue.destinationViewController as UINavigationController).topViewController as ComposeViewController
-            vc.composeButton.title = composeButtonTitle
+            vc.composeButton.setTitle(composeButtonTitle, forState: UIControlState.Normal)
             if tweet != nil {
                 vc.tweet = tweet
             }

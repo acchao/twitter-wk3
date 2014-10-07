@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nqp-2B-GfV">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Nqp-2B-GfV">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -415,13 +415,13 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="acchao" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67f-0F-ama">
-                                <rect key="frame" x="70" y="97" width="51" height="18"/>
+                                <rect key="frame" x="70" y="96" width="51" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.57390030569999995" green="0.57390030569999995" blue="0.57390030569999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" text="Type your tweet here." translatesAutoresizingMaskIntoConstraints="NO" id="iNX-xs-0Lg">
-                                <rect key="frame" x="8" y="132" width="585" height="456"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type your tweet here." translatesAutoresizingMaskIntoConstraints="NO" id="iNX-xs-0Lg">
+                                <rect key="frame" x="5" y="134" width="585" height="456"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" red="0.74980893339999999" green="0.74980893339999999" blue="0.74980893339999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -449,34 +449,39 @@
                                 <action selector="onCancelButton:" destination="uRs-Hp-mIE" id="1eg-4F-iJX"/>
                             </connections>
                         </barButtonItem>
-                        <view key="titleView" contentMode="scaleToFill" id="U7U-RL-Gdw">
-                            <rect key="frame" x="176" y="6" width="248" height="33"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-JP-E2Y">
-                                    <rect key="frame" x="6" y="0.0" width="238" height="33"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" red="0.57390030569999995" green="0.57390030569999995" blue="0.57390030569999995" alpha="1" colorSpace="calibratedRGB"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                            </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <constraints>
-                                <constraint firstAttribute="trailing" secondItem="byJ-JP-E2Y" secondAttribute="trailing" constant="10" id="EpB-t8-SfZ"/>
-                                <constraint firstItem="byJ-JP-E2Y" firstAttribute="leading" secondItem="U7U-RL-Gdw" secondAttribute="leading" id="XuY-ME-6Hu"/>
-                                <constraint firstItem="byJ-JP-E2Y" firstAttribute="top" secondItem="U7U-RL-Gdw" secondAttribute="top" id="iBD-do-Pdd"/>
-                                <constraint firstAttribute="bottom" secondItem="byJ-JP-E2Y" secondAttribute="bottom" id="j1T-Pw-ivR"/>
-                            </constraints>
-                        </view>
-                        <barButtonItem key="rightBarButtonItem" title="Tweet" id="mBq-SW-88Y">
-                            <connections>
-                                <action selector="onTweet:" destination="uRs-Hp-mIE" id="bh5-R8-lDC"/>
-                            </connections>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="gyl-pN-UuF">
+                            <view key="customView" contentMode="scaleToFill" id="dL0-xX-V6C">
+                                <rect key="frame" x="484" y="5" width="133" height="33"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wxJ-cg-tuy">
+                                        <rect key="frame" x="83" y="2" width="40" height="30"/>
+                                        <state key="normal" title="Tweet">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onTweet:" destination="uRs-Hp-mIE" eventType="touchUpInside" id="O3o-Uo-hKF"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byJ-JP-E2Y">
+                                        <rect key="frame" x="44" y="7" width="29" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.57390030569999995" green="0.57390030569999995" blue="0.57390030569999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="wxJ-cg-tuy" secondAttribute="trailing" constant="10" id="G6C-Q2-PM8"/>
+                                    <constraint firstAttribute="centerY" secondItem="wxJ-cg-tuy" secondAttribute="centerY" id="Qre-Be-RL3"/>
+                                    <constraint firstItem="wxJ-cg-tuy" firstAttribute="leading" secondItem="byJ-JP-E2Y" secondAttribute="trailing" constant="10" id="RnT-hB-aOS"/>
+                                    <constraint firstAttribute="centerY" secondItem="byJ-JP-E2Y" secondAttribute="centerY" id="uaL-IS-2AX"/>
+                                </constraints>
+                            </view>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="charCountLabel" destination="byJ-JP-E2Y" id="y7C-5q-pbG"/>
-                        <outlet property="composeButton" destination="mBq-SW-88Y" id="H3C-OF-YNZ"/>
+                        <outlet property="composeButton" destination="wxJ-cg-tuy" id="MJc-X4-dFa"/>
                         <outlet property="handleLabel" destination="67f-0F-ama" id="6RT-NQ-sNP"/>
                         <outlet property="nameLabel" destination="3nh-Gq-yDD" id="iGL-Il-HVE"/>
                         <outlet property="profileImage" destination="8Me-f9-sEl" id="Mhh-n6-7OF"/>
