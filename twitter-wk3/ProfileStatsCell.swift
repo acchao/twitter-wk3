@@ -17,7 +17,7 @@ class ProfileStatsCell: UITableViewCell {
     var user: User! {
         didSet {
             statusCountLabel.text = "\(user.statusesCount!)"
-            followingCountLabel.text = "\(user.following!)"
+            followingCountLabel.text = "\(user.friendsCount!)"
             followersCountLabel.text = "\(user.followersCount!)"
         }
     }

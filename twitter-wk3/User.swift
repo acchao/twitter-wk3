@@ -20,6 +20,7 @@ class User: NSObject {
     var profileImageUrl: String?
     var tagline: String?
     var followersCount: Int?
+    var friendsCount: Int?
     var following: Int?
     var statusesCount: Int?
     var verified: Bool?
@@ -36,6 +37,7 @@ class User: NSObject {
         statusesCount = dictionary["statuses_count"] as? Int
         verified = dictionary["verified"] as? Bool
         userDescription = dictionary["description"] as? String ?? ""
+        friendsCount = dictionary["friends_count"] as? Int
     }
 
     func logout() {
