@@ -14,6 +14,7 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
     @IBOutlet weak var tableView: UITableView!
     var tweets: [Tweet] = []
     var refreshControl: UIRefreshControl!
+    var tappedUser: User!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,12 +73,13 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("showUserSegue", sender: self)
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
 
     @IBAction func onTapUserImage(sender: UITapGestureRecognizer) {
-        println("tapped")
+        var location = sender.locationInView(view)
+        var indexPath = tableView.indexPathForRowAtPoint(location) as NSIndexPath!
+        tappedUser = tweets[indexPath.row].user as User!
         self.performSegueWithIdentifier("showUserSegue", sender: self)
     }
 
@@ -88,7 +90,7 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
         if segue.identifier == "showUserSegue" {
             var indexPath = tableView.indexPathForSelectedRow() as NSIndexPath!
             var vc = (segue.destinationViewController as UINavigationController).topViewController as ProfileViewController
-            vc.profileUser = tweets[indexPath.row].user as User!
+            vc.profileUser = tappedUser
         }
     }
     
