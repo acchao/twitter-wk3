@@ -16,8 +16,13 @@ let userDidLogoutNotification = "userDidLogoutNotification"
 class User: NSObject {
     var name: String?
     var screenname: String?
+    var userDescription: String?
     var profileImageUrl: String?
     var tagline: String?
+    var followersCount: Int?
+    var following: Int?
+    var statusesCount: Int?
+    var verified: Bool?
     var dictionary: NSDictionary
 
     init(dictionary: NSDictionary) {
@@ -26,6 +31,11 @@ class User: NSObject {
         screenname = dictionary["screen_name"] as? String ?? ""
         profileImageUrl = dictionary["profile_image_url"] as? String ?? ""
         tagline = dictionary["description"] as? String ?? ""
+        followersCount = dictionary["followers_count"] as? Int
+        following = dictionary["following"] as? Int
+        statusesCount = dictionary["statuses_count"] as? Int
+        verified = dictionary["verified"] as? Bool
+        userDescription = dictionary["description"] as? String ?? ""
     }
 
     func logout() {
@@ -33,6 +43,14 @@ class User: NSObject {
         TwitterClient.sharedInstance.requestSerializer.removeAccessToken()
 
         NSNotificationCenter.defaultCenter().postNotificationName(userDidLogoutNotification, object: nil)
+    }
+
+    class func usersWithArray(array: [NSDictionary]) -> [User] {
+        var users = [User]()
+        for dictionary in array {
+            users.append(User(dictionary: dictionary))
+        }
+        return users
     }
 
     class var currentUser: User? {

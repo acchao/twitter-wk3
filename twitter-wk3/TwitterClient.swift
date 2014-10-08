@@ -23,10 +23,33 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         return Static.instance
     }
 
+    //Get the my user timeline
+    //         https://api.twitter.com/1.1/users/lookup.json?screen_name=
+//    func userProfileWithCompletion(params: NSDictionary?, completion: (user: User?, error: NSError?) -> ()) {
+//        let screenname = User.currentUser?.screenname
+//        params?.setValue(screenname, forKey: "screenname")
+//        GET("1.1/users/lookup.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+//
+//            var users = [User]()
+//            for dictionary in array {
+//                tweets.append(Tweet(dictionary: dictionary))
+//            }
+//
+//
+//            var user = User.userWithArray(response as [NSDictionary])
+//            completion(user: user, error: nil)
+//
+//            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+//                println("error getting timeline")
+//                completion(user: nil, error: error)
+//        })
+//    }
+
+    // Get the home timeline
     func homeTimelineWithCompletion(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
 
-        var parameters = ["count": 21]
-        GET("1.1/statuses/home_timeline.json", parameters: parameters, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        params?.setValue(21, forKey: "count")
+        GET("1.1/statuses/home_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
 
             var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
             completion(tweets: tweets, error: nil)
@@ -34,6 +57,42 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
             println("error getting timeline")
             completion(tweets: nil, error: error)
+        })
+    }
+
+    func mentionsTimelineWithCompletion(params: NSDictionary, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        GET("1.1/statuses/mentions_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+
+            var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+            completion(tweets: tweets, error: nil)
+
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error getting timeline")
+                completion(tweets: nil, error: error)
+        })
+    }
+
+    func userTimelineWithCompletion(params: NSDictionary, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        GET("1.1/statuses/user_timeline.json", parameters: params, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+
+            var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+            completion(tweets: tweets, error: nil)
+
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error getting timeline")
+                completion(tweets: nil, error: error)
+        })
+    }
+
+    func suggestedFunnyFollowsWithCompletion(completion: (users: [User]?, error: NSError?) -> ()) {
+        GET("1.1/users/suggestions/funny/members.json", parameters: nil, success: { (operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+
+            var users = User.usersWithArray(response as [NSDictionary])
+            completion(users: users, error: nil)
+
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error getting suggestions")
+                completion(users: nil, error: error)
         })
     }
 
@@ -65,6 +124,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         })
     }
 
+    // Retweet
     func retweet(status_id: String, completion: (response: AnyObject?, error: NSError?)->()) {
         var parameters = ["id": status_id]
 
@@ -79,6 +139,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         })
     }
 
+    // Login
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
 
