@@ -76,7 +76,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     @IBAction func onTapUserImage(sender: UITapGestureRecognizer) {
-        var location = sender.locationInView(view)
+        var location = sender.locationInView(tweetTableView)
         var indexPath = tweetTableView.indexPathForRowAtPoint(location) as NSIndexPath!
         tappedUser = tweets[indexPath.row].user as User!
         self.performSegueWithIdentifier("showUserSegue", sender: self)

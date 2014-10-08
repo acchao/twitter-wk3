@@ -77,7 +77,7 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
     }
 
     @IBAction func onTapUserImage(sender: UITapGestureRecognizer) {
-        var location = sender.locationInView(view)
+        var location = sender.locationInView(tableView)
         var indexPath = tableView.indexPathForRowAtPoint(location) as NSIndexPath!
         tappedUser = tweets[indexPath.row].user as User!
         self.performSegueWithIdentifier("showUserSegue", sender: self)
