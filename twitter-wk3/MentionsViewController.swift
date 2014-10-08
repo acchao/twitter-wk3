@@ -88,7 +88,6 @@ class MentionsViewController: UIViewController, UITableViewDataSource, UITableVi
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "showUserSegue" {
-            var indexPath = tableView.indexPathForSelectedRow() as NSIndexPath!
             var vc = (segue.destinationViewController as UINavigationController).topViewController as ProfileViewController
             vc.profileUser = tappedUser
         }

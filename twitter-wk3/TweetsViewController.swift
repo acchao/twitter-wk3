@@ -14,6 +14,7 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
 
     var tweets: [Tweet] = []
     var refreshControl: UIRefreshControl!
+    var tappedUser: User!
 
     @IBOutlet weak var tweetTableView: UITableView!
     override func viewDidLoad() {
@@ -74,6 +75,13 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
 
+    @IBAction func onTapUserImage(sender: UITapGestureRecognizer) {
+        var location = sender.locationInView(view)
+        var indexPath = tweetTableView.indexPathForRowAtPoint(location) as NSIndexPath!
+        tappedUser = tweets[indexPath.row].user as User!
+        self.performSegueWithIdentifier("showUserSegue", sender: self)
+    }
+
     @IBAction func onLogout(sender: AnyObject) {
         User.currentUser?.logout()
     }
@@ -102,6 +110,9 @@ class TweetsViewController: UIViewController, UITableViewDataSource, UITableView
             if tweet != nil {
                 vc.tweet = tweet
             }
+        } else if segue.identifier == "showUserSegue" {
+            var vc = (segue.destinationViewController as UINavigationController).topViewController as ProfileViewController
+            vc.profileUser = tappedUser
         }
     }
 
